@@ -1,0 +1,25 @@
+{
+  "name": "helsinki_practice_3.1-3.6",
+  "version": "1.0.0",
+  "description": "they say I need a new repo for this one",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev":"nodemon index.js"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Margulis162/helsinki_3.1-3.6.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Margulis162/helsinki_3.1-3.6/issues"
+  },
+  "homepage": "https://github.com/Margulis162/helsinki_3.1-3.6#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
