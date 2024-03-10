@@ -26,6 +26,7 @@ const persons = [
         }
     ]
 
+    
 //|| uses 
   // makes my app understand incoming json 
 app.use(express.json())
@@ -43,6 +44,14 @@ app.get('/api/', (req, resp) => {
 
 app.get('/api/persons', (req, resp) => {
   resp.json(persons) 
+})
+
+app.get('/info/', (req,resp) => {
+
+  const time = new Date()
+  const numOfContacts = persons.length
+  
+  resp.send(`<p>Phonebook has info for ${numOfContacts} people</p><br/><p>${time}</p>`)
 })
 
 const PORT = 3001
