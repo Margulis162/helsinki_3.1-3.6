@@ -46,14 +46,26 @@ app.get('/api/persons', (req, resp) => {
   resp.json(persons) 
 })
 
+app.get('/api/persons/:id', (req, resp) => {
+  const id  = Number(req.params.id)
+  const person = persons.find(person => person.id === id)
+
+  if(person){
+    resp.json(person)
+  }else{
+    resp.status(404).end()
+  }
+})
+
 app.get('/info/', (req,resp) => {
 
   const time = new Date()
   const numOfContacts = persons.length
-  
+
   resp.send(`<p>Phonebook has info for ${numOfContacts} people</p><br/><p>${time}</p>`)
 })
 
+//port listener
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
