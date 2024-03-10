@@ -3,7 +3,7 @@ const app = express()
 
 // console.log(app)
 
-const persons = [
+let persons = [
         { 
           "id": 1,
           "name": "Arto Hellas", 
@@ -63,6 +63,14 @@ app.get('/info/', (req,resp) => {
   const numOfContacts = persons.length
 
   resp.send(`<p>Phonebook has info for ${numOfContacts} people</p><br/><p>${time}</p>`)
+})
+
+//delete
+
+app.delete('/api/persons/:id', (req,resp) => {
+  const id = Number(req.params.id)
+  persons = persons.filter(person => person.id !== id)
+  resp.status(204).end()
 })
 
 //port listener
