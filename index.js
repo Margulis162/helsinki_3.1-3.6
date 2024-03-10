@@ -73,6 +73,52 @@ app.delete('/api/persons/:id', (req,resp) => {
   resp.status(204).end()
 })
 
+//post
+
+const idGen = () => {
+  let nextId = 0
+  const takenIds = new Set()
+
+  const indeces = () =>{ 
+    let arr = []
+    for(let i = 0; i<=persons.length; i++){
+      arr.push[i]
+    }
+    return new Set(arr)
+  }
+
+  persons.forEach(person => takenIds.add(person.id))
+
+  //FIXIT: what are you even trying to say here, Mark? 
+  const idsAvaliable = idsAvaliable.difference(takenIds)
+
+  if(idsAvaliable.length > 0){
+    const arr = Array.from(idsAvaliable)
+     return nextId = arr[0]
+  }else{
+    return nextId = persons.length + 1
+  }
+}
+
+app.post('/api/persons/', (req,resp) => {
+  const body = req.body 
+
+  if(!body.name){
+    return resp.status(400).json(
+      {error: 'name missing'}
+    )
+  }
+
+  const person = {
+    id:idGen(),
+    name:body.name,
+    phone:body.phone,
+  }
+
+  persons.concat(person)
+  resp.json(person)
+})
+
 //port listener
 const PORT = 3001
 app.listen(PORT, () => {
