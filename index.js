@@ -76,47 +76,45 @@ app.delete('/api/persons/:id', (req,resp) => {
 //post
 
 const idGen = () => {
-  let nextId = 0
-  const takenIds = new Set()
+  const idsIdeal = []
+  const idsTaken =[]
+  let idsAvaliable = []
 
-  const indeces = () =>{ 
-    let arr = []
-    for(let i = 0; i<=persons.length; i++){
-      arr.push[i]
-    }
-    return new Set(arr)
+  //populates idsIdeal
+  for(let i = 1; i<=persons.length; i++){
+    idsIdeal.push(i)
   }
 
-  persons.forEach(person => takenIds.add(person.id))
-
-  //FIXIT: what are you even trying to say here, Mark? 
-  const idsAvaliable = idsAvaliable.difference(takenIds)
-
-  if(idsAvaliable.length > 0){
-    const arr = Array.from(idsAvaliable)
-     return nextId = arr[0]
-  }else{
-    return nextId = persons.length + 1
+  //populates ids taken
+  persons.forEach(person => idsTaken.push(person.id))
+  //so I can has has :3
+  const takenSet = new Set(idsTaken)
+  //finds the difference in between two
+  idsAvaliable = idsIdeal.filter(id => !takenSet.has(id))
+  return  idsAvaliable.length > 0?idsAvaliable[0]:persons.length + 1 
+  
+    
   }
-}
-
+  
 app.post('/api/persons/', (req,resp) => {
   const body = req.body 
-
-  if(!body.name){
-    return resp.status(400).json(
-      {error: 'name missing'}
-    )
-  }
+  const idNum = idGen()
+ 
+  // if(!body.name){
+  //   return resp.status(400).json(
+  //     {error: 'name missing'}
+  //   )
+  // }
 
   const person = {
-    id:idGen(),
+    id:idNum,
     name:body.name,
     phone:body.phone,
   }
 
-  persons.concat(person)
-  resp.json(person)
+  // persons.concat(person)
+  // resp.json(person)
+  console.log(person)
 })
 
 //port listener
