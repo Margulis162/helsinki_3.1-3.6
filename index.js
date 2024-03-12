@@ -100,11 +100,21 @@ app.post('/api/persons/', (req,resp) => {
   const body = req.body 
   const idNum = idGen()
  
-  // if(!body.name){
-  //   return resp.status(400).json(
-  //     {error: 'name missing'}
-  //   )
-  // }
+  if(!body.name || !body.phone){
+    return resp.status(400).json(
+      {error: 'name and/or phone is missing'}
+    )
+  }
+  
+    const found = persons.find(({name}) => {
+      return name === body.name
+    })
+  
+  if(found){
+    return resp.status(400).json(
+      {error: 'the name already exists'}
+    )
+  }
 
   const person = {
     id:idNum,
@@ -112,9 +122,8 @@ app.post('/api/persons/', (req,resp) => {
     phone:body.phone,
   }
 
-  // persons.concat(person)
-  // resp.json(person)
-  console.log(person)
+  persons.push(person)
+  resp.json(person)
 })
 
 //port listener
