@@ -26,11 +26,22 @@ let persons = [
         }
     ]
 
-    
+
+// prerouts middleware
+
+const requestLogger = (req, resp, next) => {
+  console.log('Method: ', req.method)
+  console.log('Path: ', req.path)
+  console.log('Body: ', req.body)
+  console.log('---')
+  next() //passes control to the next middleware
+}
+
 //|| uses 
   // makes my app understand incoming json 
 app.use(express.json())
-
+  // activates middleware
+app.use(requestLogger)
 
 //||gets
 
@@ -125,6 +136,14 @@ app.post('/api/persons/', (req,resp) => {
   persons.push(person)
   resp.json(person)
 })
+
+// post routes middleware
+
+const unknownEndpoint = (req, resp) => {
+  resp.status(404).send({error: 'page does not exist'})
+}
+
+app.use(unknownEndpoint)
 
 //port listener
 const PORT = 3001
