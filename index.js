@@ -1,4 +1,5 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 // console.log(app)
@@ -42,7 +43,7 @@ const requestLogger = (req, resp, next) => {
 app.use(express.json())
   // activates middleware
 app.use(requestLogger)
-
+app.use(morgan('combined'))
 //||gets
 
 app.get('/', (req, resp) => {
@@ -150,3 +151,4 @@ const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
