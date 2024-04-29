@@ -43,7 +43,11 @@ const requestLogger = (req, resp, next) => {
 app.use(express.json())
   // activates middleware
 app.use(requestLogger)
-app.use(morgan('combined'))
+
+app.use(morgan('tiny'))
+morgan.token('body', (req) => {return JSON.stringify(req.body)})
+app.use(morgan(':body'))
+
 //||gets
 
 app.get('/', (req, resp) => {
@@ -111,7 +115,10 @@ const idGen = () => {
 app.post('/api/persons/', (req,resp) => {
   const body = req.body 
   const idNum = idGen()
- 
+
+  // 3.8 Configure morgan so that it also shows the data sent in HTTP POST requests:
+
+  
   if(!body.name || !body.phone){
     return resp.status(400).json(
       {error: 'name and/or phone is missing'}
